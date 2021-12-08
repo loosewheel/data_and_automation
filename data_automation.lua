@@ -322,9 +322,9 @@ function minetest.dig_node (pos, toolname, silent, far_node)
 
 		if not dig then
 			if def and def.can_dig then
-				local result, can_dig = pcall (def.can_dig, pos)
+				local can_dig = def.can_dig (pos)
 
-				dig = ((not result) or (result and (can_dig == nil or can_dig == true)))
+				dig = can_dig == nil or can_dig == true
 			else
 				dig = true
 			end
@@ -346,7 +346,7 @@ function minetest.dig_node (pos, toolname, silent, far_node)
 			end
 
 			if not silent and def and def.sounds and def.sounds.dug then
-				pcall (minetest.sound_play, def.sounds.dug, { pos = pos })
+				minetest.sound_play (def.sounds.dug, { pos = pos })
 			end
 
 			minetest.remove_node (pos)
