@@ -169,7 +169,7 @@ function minetest.serialize_data (modname, data_id, data, context)
 	local filepath = string.format ("%s%s%s%d",
 											  datapath,
 											  DIR_DELIM,
-											  tostring (context) or "",
+											  tostring (context or ""),
 											  data_id)
 
 	return minetest.safe_file_write (filepath, minetest.serialize (data))
@@ -191,7 +191,7 @@ function minetest.deserialize_data (modname, data_id, context)
 	local filepath = string.format ("%s%s%s%d",
 											  minetest.get_datapath (modname),
 											  DIR_DELIM,
-											  tostring (context) or "",
+											  tostring (context or ""),
 											  data_id)
 	local file = io.open (filepath, "rb")
 
@@ -226,7 +226,7 @@ function minetest.remove_data (modname, data_id, context)
 	local filepath = string.format ("%s%s%s%d",
 											  minetest.get_datapath (modname),
 											  DIR_DELIM,
-											  tostring (context) or "",
+											  tostring (context or ""),
 											  data_id)
 
 	return (os.remove (filepath)) ~= nil
